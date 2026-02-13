@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Travel Planner</title>
+
+<style>
+
+body{
+font-family: Arial;
+background: linear-gradient(to right,#4facfe,#00f2fe);
+margin:0;
+}
+
+.container{
+width:80%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+}
+
+button{
+padding:10px;
+background:#4facfe;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+input{
+padding:10px;
+margin:5px;
+width:30%;
+}
+
+.tabs{
+margin-top:20px;
+}
+
+.tab-button{
+padding:10px;
+margin-right:5px;
+background:#ddd;
+border:none;
+cursor:pointer;
+}
+
+.tab-button.active{
+background:#4facfe;
+color:white;
+}
+
+.tab-content{
+display:none;
+margin-top:20px;
+padding:15px;
+background:#f4f9ff;
+border-radius:8px;
+}
+
+.tab-content.active{
+display:block;
+}
+
+.budget-box{
+background:#e8f5e9;
+padding:10px;
+border-radius:8px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Travel Planner with Packing Assistant ✈️</h1>
+
+<form method="POST">
+
+<input name="destination" placeholder="Destination" required>
+<input name="days" placeholder="Days" required>
+<input name="budget" placeholder="Budget ₹" required>
+
+<button type="submit">Generate</button>
+
+</form>
+
+
+{% if travel_plan %}
+
+<div class="budget-box">
+
+<h3>Budget Breakdown</h3>
+
+<p>Hotel: ₹{{budget.hotel}}</p>
+<p>Food: ₹{{budget.food}}</p>
+<p>Transport: ₹{{budget.transport}}</p>
+<p>Activities: ₹{{budget.activity}}</p>
+
+</div>
+
+
+<div class="tabs">
+
+<button class="tab-button active" onclick="openTab('plan')">Travel Plan</button>
+<button class="tab-button" onclick="openTab('packing')">Packing List</button>
+<button class="tab-button" onclick="openTab('tips')">Money Tips</button>
+
+</div>
+
+
+<div id="plan" class="tab-content active">
+{{travel_plan | safe}}
+</div>
+
+<div id="packing" class="tab-content">
+{{packing | safe}}
+</div>
+
+<div id="tips" class="tab-content">
+{{tips | safe}}
+</div>
+
+{% endif %}
+
+</div>
+
+
+<script>
+
+function openTab(tabName){
+
+var tabs=document.getElementsByClassName("tab-content");
+
+for(var i=0;i<tabs.length;i++)
+tabs[i].classList.remove("active");
+
+
+var buttons=document.getElementsByClassName("tab-button");
+
+for(var i=0;i<buttons.length;i++)
+buttons[i].classList.remove("active");
+
+
+document.getElementById(tabName).classList.add("active");
+
+event.target.classList.add("active");
+
+}
+
+</script>
+
+
+</body>
+</html>
